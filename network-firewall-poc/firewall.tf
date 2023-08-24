@@ -18,8 +18,8 @@ resource "aws_networkfirewall_firewall" "firewall" {
 resource "aws_networkfirewall_firewall_policy" "firewall" {
   name = "firewall-policy"
   firewall_policy {
-    stateless_default_actions          = ["aws:pass"]
-    stateless_fragment_default_actions = ["aws:forward_to_sfe"]
+    stateless_default_actions          = ["aws:forward_to_sfe"]
+    stateless_fragment_default_actions = ["aws:pass"]
 
     stateful_default_actions = ["aws:alert_established", "aws:drop_established"]
 
