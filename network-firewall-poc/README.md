@@ -24,3 +24,6 @@ filter (event.src_ip) = "180.252.123.23"
 | 2023-08-24 10:48:18.000 | {"firewall_name":"firewall","availability_zone":"ap-southeast-3a","event_timestamp":"1692874098","event":{"src_ip":"180.252.123.23","src_port":44331,"event_type":"alert","alert":{"severity":3,"signature_id":1,"rev":0,"signature":"","action":"allowed","category":""},"flow_id":536380034962463,"dest_ip":"10.0.11.115","proto":"TCP","dest_port":22,"timestamp":"2023-08-24T10:48:18.381983+0000"}} |
 | 2023-08-24 10:46:02.000 | {"firewall_name":"firewall","availability_zone":"ap-southeast-3a","event_timestamp":"1692873962","event":{"src_ip":"180.252.123.23","src_port":44293,"event_type":"alert","alert":{"severity":3,"signature_id":1,"rev":0,"signature":"","action":"allowed","category":""},"flow_id":135923717778563,"dest_ip":"10.0.11.115","proto":"TCP","dest_port":22,"timestamp":"2023-08-24T10:46:02.404611+0000"}} |
 ---
+
+### Notes
+Make sure you delete the firewall manually, terraform for AWS couldn't handle any error so instead of telling the error, it will indefinitely wait.

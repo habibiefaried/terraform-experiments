@@ -18,6 +18,6 @@ resource "aws_route" "igw-public-route" {
   for_each               = local.subnets.public
   route_table_id         = aws_route_table.public_rtb[each.key].id
   destination_cidr_block = "0.0.0.0/0"
-  vpc_endpoint_id        = element([for ss in tolist(aws_networkfirewall_firewall.firewall.firewall_status[0].sync_states) : ss.attachment[0].endpoint_id if ss.availability_zone == each.key], 0)
-  depends_on             = [aws_route_table.public_rtb]
+  vpc_endpoint_id        = element([for ss in tolist(module.firewall_ingress.aws_networkfirewall.firewall_status[0].sync_states) : ss.attachment[0].endpoint_id if ss.availability_zone == each.key], 0)
+  depends_on             = [aws_route_table.public_rtb, module.firewall_ingress.aws_networkfirewall]
 }

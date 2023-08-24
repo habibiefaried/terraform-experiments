@@ -23,16 +23,3 @@ resource "aws_subnet" "private_subnets" {
 
   depends_on = [aws_vpc.main]
 }
-
-resource "aws_subnet" "firewall_subnets" {
-  for_each          = local.subnets.firewall
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = each.value
-  availability_zone = each.key
-
-  tags = {
-    Name = "firewall-${each.key}"
-  }
-
-  depends_on = [aws_vpc.main]
-}
