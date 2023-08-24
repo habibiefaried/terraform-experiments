@@ -11,6 +11,17 @@ resource "aws_subnet" "public_subnets" {
   depends_on = [aws_vpc.main]
 }
 
+resource "aws_route_table" "public_rtb" {
+  for_each = local.subnets.public
+  vpc_id   = aws_vpc.main.id
+  tags = {
+    Name = "public-${each.key}"
+  }
+  depends_on = [aws_vpc.main]
+}
+
+###
+
 resource "aws_subnet" "private_subnets" {
   for_each          = local.subnets.private
   vpc_id            = aws_vpc.main.id
@@ -21,5 +32,14 @@ resource "aws_subnet" "private_subnets" {
     Name = "private-${each.key}"
   }
 
+  depends_on = [aws_vpc.main]
+}
+
+resource "aws_route_table" "private_rtb" {
+  for_each = local.subnets.private
+  vpc_id   = aws_vpc.main.id
+  tags = {
+    Name = "private-${each.key}"
+  }
   depends_on = [aws_vpc.main]
 }
