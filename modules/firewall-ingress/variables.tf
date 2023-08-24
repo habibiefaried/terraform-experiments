@@ -1,11 +1,11 @@
 variable "vpc" {
-    type = any
+  type = any
 }
 
 variable "subnets" {
-    type = any
+  type = any
 }
 
 variable "aws_igw" {
-    type = any
+  type = any
 }
