@@ -25,3 +25,10 @@ terraform {
     }
   }
 }
+
+module "firewall_ingress" {
+  source  = "./firewall-ingress"
+  vpc     = aws_vpc.main
+  subnets = local.subnets
+  aws_igw = aws_internet_gateway.gw
+}
