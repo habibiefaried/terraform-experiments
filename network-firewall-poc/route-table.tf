@@ -2,6 +2,7 @@ resource "aws_route_table_association" "public_subnet_rtb" {
   for_each       = local.subnets.public
   subnet_id      = aws_subnet.public_subnets[each.key].id
   route_table_id = aws_route_table.public_rtb[each.key].id
+  depends_on     = [aws_subnet.public_subnets]
 }
 
 resource "aws_route_table" "public_rtb" {
@@ -10,6 +11,7 @@ resource "aws_route_table" "public_rtb" {
   tags = {
     Name = "public-${each.key}"
   }
+  depends_on = [aws_vpc.main]
 }
 
 resource "aws_route" "igw-public-route" {

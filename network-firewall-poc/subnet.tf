@@ -7,6 +7,8 @@ resource "aws_subnet" "public_subnets" {
   tags = {
     Name = "public-${each.key}"
   }
+
+  depends_on = [aws_vpc.main]
 }
 
 resource "aws_subnet" "private_subnets" {
@@ -18,6 +20,8 @@ resource "aws_subnet" "private_subnets" {
   tags = {
     Name = "private-${each.key}"
   }
+
+  depends_on = [aws_vpc.main]
 }
 
 resource "aws_subnet" "firewall_subnets" {
@@ -29,4 +33,6 @@ resource "aws_subnet" "firewall_subnets" {
   tags = {
     Name = "firewall-${each.key}"
   }
+
+  depends_on = [aws_vpc.main]
 }

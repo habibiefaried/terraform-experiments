@@ -13,6 +13,7 @@ resource "aws_networkfirewall_firewall" "firewall" {
   subnet_change_protection          = false
   firewall_policy_change_protection = false
   delete_protection                 = false
+  depends_on                        = [aws_vpc.main, aws_subnet.firewall_subnets, aws_networkfirewall_firewall_policy.firewall]
 }
 
 resource "aws_networkfirewall_firewall_policy" "firewall" {
@@ -64,6 +65,7 @@ resource "aws_networkfirewall_logging_configuration" "firewall" {
       log_type             = "FLOW"
     }
   }
+  depends_on = [aws_networkfirewall_firewall.firewall]
 }
 
 resource "aws_route_table" "firewall_rtb" {
@@ -72,6 +74,7 @@ resource "aws_route_table" "firewall_rtb" {
   tags = {
     Name = "firewall-${each.key}"
   }
+  depends_on = [aws_vpc.main]
 }
 
 resource "aws_networkfirewall_rule_group" "firewall" {
@@ -100,6 +103,7 @@ resource "aws_route_table_association" "firewall_rtb" {
   for_each       = local.subnets.public
   subnet_id      = aws_subnet.firewall_subnets[each.key].id
   route_table_id = aws_route_table.firewall_rtb[each.key].id
+  depends_on     = [aws_subnet.firewall_subnets, aws_route_table.firewall_rtb]
 }
 
 resource "aws_route" "to-firewall-firewall-route" {

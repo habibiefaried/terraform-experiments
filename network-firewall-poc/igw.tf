@@ -3,6 +3,7 @@ resource "aws_internet_gateway" "gw" {
   tags = {
     Name = "Project VPC IG"
   }
+  depends_on = [aws_vpc.main]
 }
 
 resource "aws_route_table" "igw_routetable" {
@@ -10,11 +11,13 @@ resource "aws_route_table" "igw_routetable" {
   tags = {
     Name = "igw-rtb"
   }
+  depends_on = [aws_vpc.main]
 }
 
 resource "aws_route_table_association" "igw_routetable" {
   gateway_id     = aws_internet_gateway.gw.id
   route_table_id = aws_route_table.igw_routetable.id
+  depends_on     = [aws_route_table.aws_route_table.igw_routetable, aws_internet_gateway.gw]
 }
 
 resource "aws_route" "to-firewall-igw" {
