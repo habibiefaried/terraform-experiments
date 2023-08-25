@@ -27,8 +27,7 @@ terraform {
 }
 
 module "ec2" {
-  source               = "../modules/ec2"
-  subnet_id            = data.aws_subnet.default.id
-  vpc_id               = data.aws_vpc.default.id
-  iam_instance_profile = aws_iam_instance_profile.ec2.name
+  source    = "../modules/ec2"
+  subnet_id = data.aws_subnet.default.id
+  vpc_id    = data.aws_vpc.default.id
 }

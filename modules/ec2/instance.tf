@@ -1,7 +1,7 @@
 module "ec2_instance" {
   source = "git@github.com:terraform-aws-modules/terraform-aws-ec2-instance?ref=v5.3.1"
 
-  name = "single-instance"
+  name = var.instance_name
 
   instance_type               = "t3.micro"
   key_name                    = aws_key_pair.my_keypair.key_name

@@ -1,5 +1,5 @@
 resource "aws_ssm_activation" "ec2" {
-  name               = "ssm-activation"
+  name               = "${var.instance_name}-ssm-activation"
   iam_role           = aws_iam_role.ec2.id
   description        = "EC2 SSM activation"
   registration_limit = 1
@@ -12,7 +12,7 @@ resource "aws_iam_role_policy_attachment" "ec2_role_policy" {
 }
 
 resource "aws_iam_role" "ec2" {
-  name = "ec2-ssm-role"
+  name = "${var.instance_name}-ec2-ssm-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -32,7 +32,7 @@ resource "aws_iam_role" "ec2" {
 }
 
 resource "aws_iam_instance_profile" "ec2" {
-  name = "ec2-ssm-instance-profile"
+  name = "${var.instance_name}-ec2-ssm-instance-profile"
 
   role = aws_iam_role.ec2.name
 }
