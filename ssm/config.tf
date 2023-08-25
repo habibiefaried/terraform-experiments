@@ -13,7 +13,7 @@ terraform {
 
   backend "s3" {
     bucket  = "terraform-state-habibiefaried"
-    key     = "infra/vpc"
+    key     = "infra/ssm"
     region  = "ap-southeast-3"
     encrypt = true
   }
@@ -26,9 +26,9 @@ terraform {
   }
 }
 
-module "firewall_ingress" {
-  source  = "./firewall-ingress"
-  vpc     = aws_vpc.main
-  subnets = local.subnets
-  aws_igw = aws_internet_gateway.gw
+module "ec2" {
+  source    = "../modules/ec2"
+  subnet_id = data.aws_subnet.default.id
+  vpc_id    = data.aws_vpc.default.id
+  instance_name = "ssm-only"
 }
