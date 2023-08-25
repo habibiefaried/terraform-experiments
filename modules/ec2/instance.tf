@@ -10,5 +10,5 @@ module "ec2_instance" {
   subnet_id                   = var.subnet_id
   associate_public_ip_address = true
   availability_zone           = "ap-southeast-3a"
-  iam_instance_profile        = var.iam_instance_profile
+  iam_instance_profile        = aws_iam_instance_profile.ec2.name
 }
