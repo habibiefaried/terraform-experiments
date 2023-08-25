@@ -34,7 +34,8 @@ module "firewall_ingress" {
 }
 
 module "ec2" {
-  source    = "../modules/ec2"
-  subnet_id = aws_subnet.public_subnets["ap-southeast-3a"].id
-  vpc_id    = aws_vpc.main.id
+  source        = "../modules/ec2"
+  subnet_id     = aws_subnet.public_subnets["ap-southeast-3a"].id
+  vpc_id        = aws_vpc.main.id
+  instance_name = "public-instance"
 }

@@ -30,4 +30,5 @@ module "ec2" {
   source    = "../modules/ec2"
   subnet_id = data.aws_subnet.default.id
   vpc_id    = data.aws_vpc.default.id
+  instance_name = "ssm-only"
 }
